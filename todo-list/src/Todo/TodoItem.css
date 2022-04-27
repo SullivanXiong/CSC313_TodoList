@@ -1,11 +1,52 @@
 .todoItem {
   display: block;
-  width: 120px;
-  height: 170px;
-  padding: 15px;
+  width: 130px;
+  height: 180px;
+  padding: 10px;
   background-color: rgb(45, 45, 45);
   border-radius: 7.5px;
   border: 1px solid rgba(0, 0, 0, 1);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.7);
-  transition: display 0.66s;
+  transition: display 0.33s;
+}
+
+.closeButton {
+  float: right;
+  font-size: medium;
+  font-weight: bold;
+  color: rgba(125, 125, 125, 0.8);
+  transition: font-size 0.33s, font-weight 0.33s, color 0.33s;
+}
+
+.closeButton:hover {
+  font-weight: bolder;
+  font-size: large;
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+}
+
+.todoItemField {
+  background: rgb(45, 45, 45);
+  border-radius: 5px;
+  color: white;
+  border: 2px solid rgba(175, 175, 175, 0.4);
+}
+
+.todoItemField:active {
+  background: rgb(45, 45, 45);
+}
+
+.todoItemTitle {
+  width: 100px;
+  font-weight: bolder;
+}
+
+.todoItemDescription {
+  margin-top: 10px;
+  width: 120px;
+  height: 140px;
+}
+
+textarea {
+  resize: none;
 }
