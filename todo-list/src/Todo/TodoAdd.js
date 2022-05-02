@@ -6,7 +6,7 @@ export default function TodoAdd({ setTodoItems }) {
     <div className="todoAdd">
       <div
         onClick={() => {
-          setTodoItems((oldItems) => [...oldItems, { title: "", description: "" }]);
+          setTodoItems((oldItems) => [...oldItems, { title: "", data: { description: "", date: "" } }]);
         }}
         className="todoAddButton"
       >
