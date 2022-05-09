@@ -12,18 +12,22 @@ const dynamoCB = (err, data) => {
 exports.handler = async (event, context) => {
     let body;
     let statusCode = '200';
+
+    // response headers
     const headers = {
         'Content-Type': 'application/json',
-        statusCode: 200,
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
     };
-    console.log(event, "testing!!!", context, "\n\n\n");
+
+    // get query string parameters from the event object passed from API Gateway
     const params = event.queryStringParameters;
 
     try {
         switch (event.httpMethod) {
+
+            // delete a todo from the DB
             case 'DELETE':
                 const delete_title = params.delete;
                 const delete_item = {
@@ -33,13 +37,10 @@ exports.handler = async (event, context) => {
 
                 body = await dynamodb.delete(delete_item).promise();
                 break;
-            // case 'GET':
-            //     body = await dynamo.scan({ TableName: event.queryStringParameters.TableName }).promise();
-            //     break;
+    
+            // add a todo to the DB
             case 'POST':
-                console.log("Getting to post!!");
-                const timeElapsed = Date.now();
-                const today = new Date(timeElapsed);
+                const today = new Date(Date.now());
                 const dateString = today.toLocaleDateString();
                 const title = params.title;
                 const todo_description = JSON.stringify(event.body);
@@ -53,19 +54,15 @@ exports.handler = async (event, context) => {
                     }
                 };
 
-                // add new todo to dynamo
                 body = await dynamodb.put(new_item).promise();
-
                 break;
+
+            // get all todos from the DB
             case 'GET':
                 body = await dynamodb.scan({ TableName: "workshop_db" }).promise();
                 break;
-            // case 'PUT':
-            //     body = await dynamo.update(JSON.parse(event.body)).promise();
-            //     break;
 
             default:
-
                 body = JSON.stringify('Hello from Michaels Lambda!');
                 break
         }
