@@ -1,8 +1,9 @@
 import { toast } from "react-toastify";
 
+const API_INVOKE_BASE_URL = "https://yaa6qqcz3a.execute-api.us-west-2.amazonaws.com/default/todo_list"
 export async function createNewItem(title, body) {
   try {
-    await fetch(`https://pbzc8wto7k.execute-api.us-west-2.amazonaws.com/default/to_do_list?title=${title}`, {
+    await fetch(`${API_INVOKE_BASE_URL}?title=${title}`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -18,7 +19,7 @@ export async function createNewItem(title, body) {
 export async function getItems() {
   try {
     let items = await (
-      await fetch("https://pbzc8wto7k.execute-api.us-west-2.amazonaws.com/default/to_do_list", {
+      await fetch(`${API_INVOKE_BASE_URL}`, {
         method: "GET",
         mode: "cors",
         headers: {

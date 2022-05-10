@@ -3,6 +3,9 @@ import { toast } from "react-toastify";
 import "./TodoItem.css";
 import { createNewItem, getItems } from "./todoUtility";
 
+
+const API_INVOKE_BASE_URL = "https://yaa6qqcz3a.execute-api.us-west-2.amazonaws.com/default/todo_list"
+
 export default function TodoItem({ title, description, setTodoItems }) {
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -24,14 +27,14 @@ export default function TodoItem({ title, description, setTodoItems }) {
     let _title = titleRef.current.value;
     let _description = descriptionRef.current.value;
 
-    if (_title != prevTitle) {
-      await fetch(`https://pbzc8wto7k.execute-api.us-west-2.amazonaws.com/default/to_do_list?delete=${prevTitle}`, {
+    if (_title !== prevTitle) {
+      await fetch(`${API_INVOKE_BASE_URL}?delete=${prevTitle}`, {
         method: "DELETE",
       });
 
       await createNewItem(_title, _description);
       prevTitle = _title;
-    } else if (_description != prevDescription) {
+    } else if (_description !== prevDescription) {
       prevDescription = _description;
       await createNewItem(_title, _description);
     }
@@ -45,7 +48,7 @@ export default function TodoItem({ title, description, setTodoItems }) {
         className="closeButton"
         onClick={async () => {
           await fetch(
-            `https://pbzc8wto7k.execute-api.us-west-2.amazonaws.com/default/to_do_list?delete=${titleRef.current.value}`,
+            `${API_INVOKE_BASE_URL}?delete=${titleRef.current.value}`,
             {
               method: "DELETE",
             }
